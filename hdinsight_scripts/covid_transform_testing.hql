@@ -1,7 +1,3 @@
--- ********************** Important ******************************************
--- Make sure you change the storage account names to your storage account name
--- ********************** Important ******************************************
-
 CREATE DATABASE IF NOT EXISTS covid_reporting_lookup;
 CREATE DATABASE IF NOT EXISTS covid_reporting_raw;
 CREATE DATABASE IF NOT EXISTS covid_reporting_processed;
@@ -24,7 +20,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS covid_reporting_lookup.dim_date (
    )
    ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
    STORED AS TEXTFILE
-   LOCATION 'abfs://lookup@covidreportingdl.dfs.core.windows.net/dim_date/'
+   LOCATION 'abfs://lookup@covidreportingdatl.dfs.core.windows.net/dim_date/'
    TBLPROPERTIES ("skip.header.line.count"="1");
 
 DROP TABLE IF EXISTS covid_reporting_lookup.dim_country;
@@ -36,7 +32,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS covid_reporting_lookup.dim_country (
    )
    ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
    STORED AS TEXTFILE
-   LOCATION 'abfs://lookup@covidreportingdl.dfs.core.windows.net/dim_country/'
+   LOCATION 'abfs://lookup@covidreportingdatl.dfs.core.windows.net/dim_country/'
    TBLPROPERTIES ("skip.header.line.count"="1");
 
 DROP TABLE IF EXISTS covid_reporting_raw.testing;
@@ -54,7 +50,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS covid_reporting_raw.testing (
 )
    ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
    STORED AS TEXTFILE
-   LOCATION 'abfs://raw@covidreportingdl.dfs.core.windows.net/ecdc/testing/'
+   LOCATION 'abfs://raw@covidreportingdatl.dfs.core.windows.net/ecdc/testing/'
    TBLPROPERTIES ("skip.header.line.count"="1");
 
 DROP TABLE IF EXISTS covid_reporting_processed.testing;
@@ -75,7 +71,7 @@ CREATE TABLE IF NOT EXISTS covid_reporting_processed.testing (
 )
    ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
    STORED AS TEXTFILE
-   LOCATION 'abfs://processed@covidreportingdl.dfs.core.windows.net/ecdc/testing'
+   LOCATION 'abfs://processed@covidreportingdatl.dfs.core.windows.net/ecdc/testing'
    TBLPROPERTIES ("skip.header.line.count"="1");
 
 INSERT OVERWRITE TABLE covid_reporting_processed.testing
